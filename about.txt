@@ -1,0 +1,133 @@
+import { motion } from 'framer-motion';
+import { Code, Database, Smartphone, Server, Briefcase, Layers, Award } from 'lucide-react';
+
+interface AboutProps {
+  isDark: boolean;
+}
+
+const About = ({ isDark }: AboutProps) => {
+  const skills = [
+    { name: 'Flutter', category: 'Mobile Development' },
+    { name: 'ASP.NET MVC', category: 'Backend' },
+    { name: 'React JS', category: 'Frontend' },
+    { name: 'PHP Laravel', category: 'Backend' },
+    { name: 'Javascript, ES7', category: 'Frontend' },
+    { name: 'HTML 5, CSS 3', category: 'Frontend' },
+    { name: 'Bootstrap', category: 'Frontend' },
+    { name: 'Firebase', category: 'Backend' },
+    { name: 'MongoDB', category: 'Database' },
+    { name: 'SQL Server', category: 'Database' },
+    { name: 'MySQL', category: 'Database' },
+  ];
+
+  const categories = [
+    { name: 'Frontend', icon: <Code className="w-5 h-5" />, count: 4 },
+    { name: 'Backend', icon: <Server className="w-5 h-5" />, count: 4 },
+    { name: 'Mobile Development', icon: <Smartphone className="w-5 h-5" />, count: 1 },
+    { name: 'Database', icon: <Database className="w-5 h-5" />, count: 3 },
+  ];
+
+  const stats = [
+    { number: '6+', label: 'Projects Completed', icon: Briefcase },
+    { number: '4+', label: 'Tech Stacks', icon: Layers },
+    { number: '100%', label: 'Client Satisfaction', icon: Award },
+  ];
+
+  return (
+    <section
+      id="about"
+      className={`py-24 transition-colors ${
+        isDark ? 'bg-neutral-950 text-white' : 'bg-white text-neutral-900'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* Header */}
+        <div className="text-center mb-20">
+          <div className={`h-0.5 w-14 mx-auto mb-8 ${isDark ? 'bg-[#08CB00]' : 'bg-neutral-900'}`} />
+          <h2 className={`text-5xl md:text-6xl font-light mb-6 ${isDark ? 'text-neutral-100' : 'text-neutral-900'}`}>
+            About Us
+          </h2>
+          <p className={`text-xl max-w-2xl mx-auto font-light ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
+            Crafting digital experiences with precision and purpose.
+          </p>
+        </div>
+
+        {/* Skills */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+          {categories.map((category, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ y: -5 }}
+              className={`border rounded-2xl p-6 transition-all ${
+                isDark ? 'bg-neutral-800 border-neutral-700' : 'bg-white border-neutral-200'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`p-2 rounded-lg text-white ${
+                      isDark ? 'bg-[#08CB00]' : 'bg-[#08CB00]'
+                    }`}
+                  >
+                    {category.icon}
+                  </div>
+                  <span className={`${isDark ? 'text-neutral-100' : 'text-neutral-900'} font-medium`}>
+                    {category.name}
+                  </span>
+                </div>
+                <span className={`${isDark ? 'text-neutral-400' : 'text-neutral-500'} text-sm`}>
+                  {category.count}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {skills
+                  .filter(skill => skill.category === category.name)
+                  .map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className={`text-sm px-3 py-1.5 rounded-full transition-colors ${
+                        isDark ? 'text-neutral-300 bg-neutral-700' : 'text-neutral-600 bg-neutral-100'
+                      }`}
+                    >
+                      {skill.name}
+                    </span>
+                  ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Stats */}
+        <div className={`rounded-3xl p-12 mb-20 transition-colors ${isDark ? 'bg-black text-white' : 'bg-neutral-900 text-white'}`}>
+          <h3 className="text-3xl font-light text-center mb-12">
+            By the Numbers
+          </h3>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div key={index} className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-6 bg-white/10 rounded-2xl flex items-center justify-center">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div className="text-5xl font-light mb-3">
+                    {stat.number}
+                  </div>
+                  <div className="text-neutral-400 text-sm uppercase tracking-widest">
+                    {stat.label}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
+export default About;
